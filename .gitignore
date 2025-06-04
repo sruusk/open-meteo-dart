@@ -23,3 +23,5 @@ pubspec.lock
 
 # Ignore generated dart files
 *.*.dart
+
+/.idea/
