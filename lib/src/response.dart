@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:flat_buffers/flat_buffers.dart';
+import 'package:fixnum/fixnum.dart';
+import 'int64_compatibility.dart';
 
 import 'api.dart';
 import 'weather_api_openmeteo_sdk_generated.dart';
@@ -102,7 +104,9 @@ Map<ApiParameter, ParameterValue> _deserializeSingle<ApiParameter>(
   List<VariableWithValues>? variables = data.variables;
   if (variables == null) return {};
 
-  DateTime timestamp = DateTime.fromMillisecondsSinceEpoch(data.time * 1000);
+  // Convert timestamp values using Int64 compatibility
+  DateTime timestamp = DateTime.fromMillisecondsSinceEpoch(
+      Int64Compatibility.toInt(Int64(data.time)) * 1000);
 
   return Map.fromEntries(variables.map((v) {
     ApiParameter? parameter = hashes[_computeHash(v)];
@@ -127,8 +131,11 @@ Map<ApiParameter, ParameterValues> _deserializeMultiple<ApiParameter>(
   List<VariableWithValues>? variables = data.variables;
   if (variables == null) return {};
 
-  DateTime startTime = DateTime.fromMillisecondsSinceEpoch(data.time * 1000);
-  DateTime endTime = DateTime.fromMillisecondsSinceEpoch(data.timeEnd * 1000);
+  // Convert timestamp values using Int64 compatibility
+  DateTime startTime = DateTime.fromMillisecondsSinceEpoch(
+      Int64Compatibility.toInt(Int64(data.time)) * 1000);
+  DateTime endTime = DateTime.fromMillisecondsSinceEpoch(
+      Int64Compatibility.toInt(Int64(data.timeEnd)) * 1000);
   Duration interval = Duration(seconds: data.interval);
   List<DateTime> timestamps = [
     for (DateTime time = startTime;
@@ -141,14 +148,18 @@ Map<ApiParameter, ParameterValues> _deserializeMultiple<ApiParameter>(
     ApiParameter? parameter = hashes[_computeHash(v)];
     if (parameter == null) return null;
 
+    // Handle values using Int64 compatibility
+    final values = v.values ?? v.valuesInt64;
+    final valuesMap = values?.asMap().map((index, value) {
+          return MapEntry(timestamps[index], value);
+        }) ??
+        {};
+
     return MapEntry(
       parameter,
       ParameterValues._(
         unit: _unitsMap[v.unit]!,
-        values: (v.values ?? v.valuesInt64)
-                ?.asMap()
-                .map((index, value) => MapEntry(timestamps[index], value)) ??
-            {},
+        values: valuesMap,
       ),
     );
   }).nonNulls);
