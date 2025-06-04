@@ -104,9 +104,9 @@ Map<ApiParameter, ParameterValue> _deserializeSingle<ApiParameter>(
   List<VariableWithValues>? variables = data.variables;
   if (variables == null) return {};
 
-  // Convert timestamp values using Int64 compatibility
-  DateTime timestamp = DateTime.fromMillisecondsSinceEpoch(
-      Int64Compatibility.toInt(Int64(data.time)) * 1000);
+  // Convert timestamp values using enhanced Int64 compatibility methods
+  DateTime timestamp = Int64Compatibility.dateTimeFromInt64Seconds(
+      Int64Compatibility.getTimeAsInt64(data));
 
   return Map.fromEntries(variables.map((v) {
     ApiParameter? parameter = hashes[_computeHash(v)];
@@ -131,11 +131,12 @@ Map<ApiParameter, ParameterValues> _deserializeMultiple<ApiParameter>(
   List<VariableWithValues>? variables = data.variables;
   if (variables == null) return {};
 
-  // Convert timestamp values using Int64 compatibility
-  DateTime startTime = DateTime.fromMillisecondsSinceEpoch(
-      Int64Compatibility.toInt(Int64(data.time)) * 1000);
-  DateTime endTime = DateTime.fromMillisecondsSinceEpoch(
-      Int64Compatibility.toInt(Int64(data.timeEnd)) * 1000);
+  // Convert timestamp values using enhanced Int64 compatibility methods
+  DateTime startTime = Int64Compatibility.dateTimeFromInt64Seconds(
+      Int64Compatibility.getTimeAsInt64(data));
+  DateTime endTime = Int64Compatibility.dateTimeFromInt64Seconds(
+      Int64Compatibility.getTimeEndAsInt64(data));
+
   Duration interval = Duration(seconds: data.interval);
   List<DateTime> timestamps = [
     for (DateTime time = startTime;
@@ -148,12 +149,19 @@ Map<ApiParameter, ParameterValues> _deserializeMultiple<ApiParameter>(
     ApiParameter? parameter = hashes[_computeHash(v)];
     if (parameter == null) return null;
 
-    // Handle values using Int64 compatibility
-    final values = v.values ?? v.valuesInt64;
-    final valuesMap = values?.asMap().map((index, value) {
-          return MapEntry(timestamps[index], value);
-        }) ??
-        {};
+    // Use the enhanced Int64Compatibility to handle values
+    Map<DateTime, num> valuesMap;
+
+    if (v.values != null) {
+      valuesMap = v.values!
+          .asMap()
+          .map((index, value) => MapEntry(timestamps[index], value));
+    } else if (v.valuesInt64 != null) {
+      // Use our helper method for handling Int64 values
+      valuesMap = Int64Compatibility.createTimeValueMap(v.valuesInt64, timestamps);
+    } else {
+      valuesMap = {};
+    }
 
     return MapEntry(
       parameter,
