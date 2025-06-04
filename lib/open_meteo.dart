@@ -17,3 +17,4 @@ export 'src/enums/weather.dart';
 export 'src/exceptions.dart';
 export 'src/options.dart';
 export 'src/response.dart';
+export 'src/int64_compatibility.dart';
