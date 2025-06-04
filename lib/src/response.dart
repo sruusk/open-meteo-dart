@@ -1,9 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:flat_buffers/flat_buffers.dart';
-import 'package:fixnum/fixnum.dart';
-import 'int64_compatibility.dart';
-import 'web_compatible_flatbuffers.dart';
 
 import 'api.dart';
 import 'weather_api_openmeteo_sdk_generated.dart';
@@ -44,12 +41,8 @@ class ApiResponse<Api extends BaseApi> {
   }) {
     int prefixed =
         BufferContext.fromBytes(bytes).buffer.getUint32(0, Endian.little);
-    WeatherApiResponse rawResponse =
+    WeatherApiResponse response =
         WeatherApiResponse(bytes.sublist(4, prefixed + 4));
-
-    // Wrap the raw response with our web-compatible wrapper
-    WebCompatibleWeatherApiResponse response =
-        WebCompatibleFlatBuffers.wrapWeatherApiResponse(rawResponse);
 
     return ApiResponse._(
       latitude: response.latitude,
@@ -62,10 +55,10 @@ class ApiResponse<Api extends BaseApi> {
       timezone: response.timezone,
       timezoneAbbreviation: response.timezoneAbbreviation,
       minutely15Data:
-          _deserializeMultipleWebCompatible(response.minutely15, minutely15Hashes),
-      currentData: _deserializeSingleWebCompatible(response.current, currentHashes),
-      hourlyData: _deserializeMultipleWebCompatible(response.hourly, hourlyHashes),
-      dailyData: _deserializeMultipleWebCompatible(response.daily, dailyHashes),
+          _deserializeMultiple(response.minutely15, minutely15Hashes),
+      currentData: _deserializeSingle(response.current, currentHashes),
+      hourlyData: _deserializeMultiple(response.hourly, hourlyHashes),
+      dailyData: _deserializeMultiple(response.daily, dailyHashes),
     );
   }
 }
@@ -109,9 +102,7 @@ Map<ApiParameter, ParameterValue> _deserializeSingle<ApiParameter>(
   List<VariableWithValues>? variables = data.variables;
   if (variables == null) return {};
 
-  // Convert timestamp values using enhanced Int64 compatibility methods
-  DateTime timestamp = Int64Compatibility.dateTimeFromInt64Seconds(
-      Int64Compatibility.getTimeAsInt64(data));
+  DateTime timestamp = DateTime.fromMillisecondsSinceEpoch(data.time * 1000);
 
   return Map.fromEntries(variables.map((v) {
     ApiParameter? parameter = hashes[_computeHash(v)];
@@ -136,12 +127,8 @@ Map<ApiParameter, ParameterValues> _deserializeMultiple<ApiParameter>(
   List<VariableWithValues>? variables = data.variables;
   if (variables == null) return {};
 
-  // Convert timestamp values using enhanced Int64 compatibility methods
-  DateTime startTime = Int64Compatibility.dateTimeFromInt64Seconds(
-      Int64Compatibility.getTimeAsInt64(data));
-  DateTime endTime = Int64Compatibility.dateTimeFromInt64Seconds(
-      Int64Compatibility.getTimeEndAsInt64(data));
-
+  DateTime startTime = DateTime.fromMillisecondsSinceEpoch(data.time * 1000);
+  DateTime endTime = DateTime.fromMillisecondsSinceEpoch(data.timeEnd * 1000);
   Duration interval = Duration(seconds: data.interval);
   List<DateTime> timestamps = [
     for (DateTime time = startTime;
@@ -154,104 +141,14 @@ Map<ApiParameter, ParameterValues> _deserializeMultiple<ApiParameter>(
     ApiParameter? parameter = hashes[_computeHash(v)];
     if (parameter == null) return null;
 
-    // Use the enhanced Int64Compatibility to handle values
-    Map<DateTime, num> valuesMap;
-
-    if (v.values != null) {
-      valuesMap = v.values!
-          .asMap()
-          .map((index, value) => MapEntry(timestamps[index], value));
-    } else if (v.valuesInt64 != null) {
-      // Use our helper method for handling Int64 values
-      valuesMap = Int64Compatibility.createTimeValueMap(v.valuesInt64, timestamps);
-    } else {
-      valuesMap = {};
-    }
-
     return MapEntry(
       parameter,
       ParameterValues._(
         unit: _unitsMap[v.unit]!,
-        values: valuesMap,
-      ),
-    );
-  }).nonNulls);
-}
-
-// Add new web-compatible deserialize methods
-Map<ApiParameter, ParameterValue> _deserializeSingleWebCompatible<ApiParameter>(
-  WebCompatibleVariablesWithTime? data,
-  Map<int, ApiParameter>? hashes,
-) {
-  if (data == null || hashes == null) return {};
-  List<WebCompatibleVariableWithValues>? variables = data.variables;
-  if (variables == null) return {};
-
-  // Convert timestamp values using web-compatible timestamp
-  DateTime timestamp = DateTime.fromMillisecondsSinceEpoch(data.time * 1000);
-
-  return Map.fromEntries(variables.map((v) {
-    ApiParameter? parameter = hashes[_computeHash(v.data)];
-    if (parameter == null) return null;
-
-    return MapEntry(
-      parameter,
-      ParameterValue._(
-        unit: _unitsMap[v.unit]!,
-        time: timestamp,
-        value: v.value,
-      ),
-    );
-  }).nonNulls);
-}
-
-Map<ApiParameter, ParameterValues> _deserializeMultipleWebCompatible<ApiParameter>(
-  WebCompatibleVariablesWithTime? data,
-  Map<int, ApiParameter>? hashes,
-) {
-  if (data == null || hashes == null) return {};
-  List<WebCompatibleVariableWithValues>? variables = data.variables;
-  if (variables == null) return {};
-
-  // Convert timestamp values using web-compatible timestamps
-  DateTime startTime = DateTime.fromMillisecondsSinceEpoch(data.time * 1000);
-  DateTime endTime = DateTime.fromMillisecondsSinceEpoch(data.timeEnd * 1000);
-
-  Duration interval = Duration(seconds: data.interval);
-  List<DateTime> timestamps = [
-    for (DateTime time = startTime;
-        time.isBefore(endTime);
-        time = time.add(interval))
-      time
-  ];
-
-  return Map.fromEntries(variables.map((v) {
-    ApiParameter? parameter = hashes[_computeHash(v.data)];
-    if (parameter == null) return null;
-
-    // Use web-compatible approach to handle values
-    Map<DateTime, num> valuesMap;
-
-    if (v.values != null) {
-      valuesMap = v.values!
-          .asMap()
-          .map((index, value) => MapEntry(timestamps[index], value));
-    } else if (v.valuesInt64 != null) {
-      // Create a map of timestamps to values
-      valuesMap = {};
-      final values = v.valuesInt64!;
-      for (int i = 0; i < values.length && i < timestamps.length; i++) {
-        valuesMap[timestamps[i]] = values[i];
-      }
-    } else {
-      valuesMap = {};
-    }
-
-    return MapEntry(
-      parameter,
-      ParameterValues._(
-        unit: _unitsMap[v.unit]!,
-        values: valuesMap,
+        values: (v.values ?? v.valuesInt64)
+                ?.asMap()
+                .map((index, value) => MapEntry(timestamps[index], value)) ??
+            {},
       ),
     );
   }).nonNulls);
