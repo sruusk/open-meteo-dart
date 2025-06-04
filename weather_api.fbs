@@ -1,6 +1,6 @@
 // Flatbuffers API result format for open-meteo weather data
-// 
-// Generate swift code with: 
+//
+// Generate swift code with:
 // flatc --swift -o swift/Sources/OpenMeteoSdk/ flatbuffers/*.fbs
 // See DEVELOPMENT.md for more information
 //
@@ -327,8 +327,8 @@ table VariableWithValues {
 }
 
 table VariablesWithTime {
-  time: int64;
-  time_end: int64;
+  time: int32;
+  time_end: int32;
   interval: int32;
   variables: [VariableWithValues];
 }

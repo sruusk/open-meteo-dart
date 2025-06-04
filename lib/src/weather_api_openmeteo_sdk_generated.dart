@@ -6,6 +6,7 @@ library openmeteo_sdk;
 import 'dart:typed_data' show Uint8List;
 import 'package:flat_buffers/flat_buffers.dart' as fb;
 
+
 enum Unit {
   undefined(0),
   celsius(1),
@@ -55,92 +56,49 @@ enum Unit {
 
   factory Unit.fromValue(int value) {
     switch (value) {
-      case 0:
-        return Unit.undefined;
-      case 1:
-        return Unit.celsius;
-      case 2:
-        return Unit.centimetre;
-      case 3:
-        return Unit.cubic_metre_per_cubic_metre;
-      case 4:
-        return Unit.cubic_metre_per_second;
-      case 5:
-        return Unit.degree_direction;
-      case 6:
-        return Unit.dimensionless_integer;
-      case 7:
-        return Unit.dimensionless;
-      case 8:
-        return Unit.european_air_quality_index;
-      case 9:
-        return Unit.fahrenheit;
-      case 10:
-        return Unit.feet;
-      case 11:
-        return Unit.fraction;
-      case 12:
-        return Unit.gdd_celsius;
-      case 13:
-        return Unit.geopotential_metre;
-      case 14:
-        return Unit.grains_per_cubic_metre;
-      case 15:
-        return Unit.gram_per_kilogram;
-      case 16:
-        return Unit.hectopascal;
-      case 17:
-        return Unit.hours;
-      case 18:
-        return Unit.inch;
-      case 19:
-        return Unit.iso8601;
-      case 20:
-        return Unit.joule_per_kilogram;
-      case 21:
-        return Unit.kelvin;
-      case 22:
-        return Unit.kilopascal;
-      case 23:
-        return Unit.kilogram_per_square_metre;
-      case 24:
-        return Unit.kilometres_per_hour;
-      case 25:
-        return Unit.knots;
-      case 26:
-        return Unit.megajoule_per_square_metre;
-      case 27:
-        return Unit.metre_per_second_not_unit_converted;
-      case 28:
-        return Unit.metre_per_second;
-      case 29:
-        return Unit.metre;
-      case 30:
-        return Unit.micrograms_per_cubic_metre;
-      case 31:
-        return Unit.miles_per_hour;
-      case 32:
-        return Unit.millimetre;
-      case 33:
-        return Unit.pascal;
-      case 34:
-        return Unit.per_second;
-      case 35:
-        return Unit.percentage;
-      case 36:
-        return Unit.seconds;
-      case 37:
-        return Unit.unix_time;
-      case 38:
-        return Unit.us_air_quality_index;
-      case 39:
-        return Unit.watt_per_square_metre;
-      case 40:
-        return Unit.wmo_code;
-      case 41:
-        return Unit.parts_per_million;
-      default:
-        throw StateError('Invalid value $value for bit flag enum');
+      case 0: return Unit.undefined;
+      case 1: return Unit.celsius;
+      case 2: return Unit.centimetre;
+      case 3: return Unit.cubic_metre_per_cubic_metre;
+      case 4: return Unit.cubic_metre_per_second;
+      case 5: return Unit.degree_direction;
+      case 6: return Unit.dimensionless_integer;
+      case 7: return Unit.dimensionless;
+      case 8: return Unit.european_air_quality_index;
+      case 9: return Unit.fahrenheit;
+      case 10: return Unit.feet;
+      case 11: return Unit.fraction;
+      case 12: return Unit.gdd_celsius;
+      case 13: return Unit.geopotential_metre;
+      case 14: return Unit.grains_per_cubic_metre;
+      case 15: return Unit.gram_per_kilogram;
+      case 16: return Unit.hectopascal;
+      case 17: return Unit.hours;
+      case 18: return Unit.inch;
+      case 19: return Unit.iso8601;
+      case 20: return Unit.joule_per_kilogram;
+      case 21: return Unit.kelvin;
+      case 22: return Unit.kilopascal;
+      case 23: return Unit.kilogram_per_square_metre;
+      case 24: return Unit.kilometres_per_hour;
+      case 25: return Unit.knots;
+      case 26: return Unit.megajoule_per_square_metre;
+      case 27: return Unit.metre_per_second_not_unit_converted;
+      case 28: return Unit.metre_per_second;
+      case 29: return Unit.metre;
+      case 30: return Unit.micrograms_per_cubic_metre;
+      case 31: return Unit.miles_per_hour;
+      case 32: return Unit.millimetre;
+      case 33: return Unit.pascal;
+      case 34: return Unit.per_second;
+      case 35: return Unit.percentage;
+      case 36: return Unit.seconds;
+      case 37: return Unit.unix_time;
+      case 38: return Unit.us_air_quality_index;
+      case 39: return Unit.watt_per_square_metre;
+      case 40: return Unit.wmo_code;
+      case 41: return Unit.parts_per_million;
+      default: throw StateError('Invalid value $value for bit flag enum');
     }
   }
 
@@ -264,196 +222,101 @@ enum Model {
 
   factory Model.fromValue(int value) {
     switch (value) {
-      case 0:
-        return Model.undefined;
-      case 1:
-        return Model.best_match;
-      case 2:
-        return Model.gfs_seamless;
-      case 3:
-        return Model.gfs_global;
-      case 4:
-        return Model.gfs_hrrr;
-      case 5:
-        return Model.meteofrance_seamless;
-      case 6:
-        return Model.meteofrance_arpege_seamless;
-      case 7:
-        return Model.meteofrance_arpege_world;
-      case 8:
-        return Model.meteofrance_arpege_europe;
-      case 9:
-        return Model.meteofrance_arome_seamless;
-      case 10:
-        return Model.meteofrance_arome_france;
-      case 11:
-        return Model.meteofrance_arome_france_hd;
-      case 12:
-        return Model.jma_seamless;
-      case 13:
-        return Model.jma_msm;
-      case 14:
-        return Model.jms_gsm;
-      case 15:
-        return Model.jma_gsm;
-      case 16:
-        return Model.gem_seamless;
-      case 17:
-        return Model.gem_global;
-      case 18:
-        return Model.gem_regional;
-      case 19:
-        return Model.gem_hrdps_continental;
-      case 20:
-        return Model.icon_seamless;
-      case 21:
-        return Model.icon_global;
-      case 22:
-        return Model.icon_eu;
-      case 23:
-        return Model.icon_d2;
-      case 24:
-        return Model.ecmwf_ifs04;
-      case 25:
-        return Model.metno_nordic;
-      case 26:
-        return Model.era5_seamless;
-      case 27:
-        return Model.era5;
-      case 28:
-        return Model.cerra;
-      case 29:
-        return Model.era5_land;
-      case 30:
-        return Model.ecmwf_ifs;
-      case 31:
-        return Model.gwam;
-      case 32:
-        return Model.ewam;
-      case 33:
-        return Model.glofas_seamless_v3;
-      case 34:
-        return Model.glofas_forecast_v3;
-      case 35:
-        return Model.glofas_consolidated_v3;
-      case 36:
-        return Model.glofas_seamless_v4;
-      case 37:
-        return Model.glofas_forecast_v4;
-      case 38:
-        return Model.glofas_consolidated_v4;
-      case 39:
-        return Model.gfs025;
-      case 40:
-        return Model.gfs05;
-      case 41:
-        return Model.CMCC_CM2_VHR4;
-      case 42:
-        return Model.FGOALS_f3_H_highresSST;
-      case 43:
-        return Model.FGOALS_f3_H;
-      case 44:
-        return Model.HiRAM_SIT_HR;
-      case 45:
-        return Model.MRI_AGCM3_2_S;
-      case 46:
-        return Model.EC_Earth3P_HR;
-      case 47:
-        return Model.MPI_ESM1_2_XR;
-      case 48:
-        return Model.NICAM16_8S;
-      case 49:
-        return Model.cams_europe;
-      case 50:
-        return Model.cams_global;
-      case 51:
-        return Model.cfsv2;
-      case 52:
-        return Model.era5_ocean;
-      case 53:
-        return Model.cma_grapes_global;
-      case 54:
-        return Model.bom_access_global;
-      case 55:
-        return Model.bom_access_global_ensemble;
-      case 56:
-        return Model.arpae_cosmo_seamless;
-      case 57:
-        return Model.arpae_cosmo_2i;
-      case 58:
-        return Model.arpae_cosmo_2i_ruc;
-      case 59:
-        return Model.arpae_cosmo_5m;
-      case 60:
-        return Model.ecmwf_ifs025;
-      case 61:
-        return Model.ecmwf_aifs025;
-      case 62:
-        return Model.gfs013;
-      case 63:
-        return Model.gfs_graphcast025;
-      case 64:
-        return Model.ecmwf_wam025;
-      case 65:
-        return Model.meteofrance_wave;
-      case 66:
-        return Model.meteofrance_currents;
-      case 67:
-        return Model.ecmwf_wam025_ensemble;
-      case 68:
-        return Model.ncep_gfswave025;
-      case 69:
-        return Model.ncep_gefswave025;
-      case 70:
-        return Model.knmi_seamless;
-      case 71:
-        return Model.knmi_harmonie_arome_europe;
-      case 72:
-        return Model.knmi_harmonie_arome_netherlands;
-      case 73:
-        return Model.dmi_seamless;
-      case 74:
-        return Model.dmi_harmonie_arome_europe;
-      case 75:
-        return Model.metno_seamless;
-      case 76:
-        return Model.era5_ensemble;
-      case 77:
-        return Model.ecmwf_ifs_analysis;
-      case 78:
-        return Model.ecmwf_ifs_long_window;
-      case 79:
-        return Model.ecmwf_ifs_analysis_long_window;
-      case 80:
-        return Model.ukmo_global_deterministic_10km;
-      case 81:
-        return Model.ukmo_uk_deterministic_2km;
-      case 82:
-        return Model.ukmo_seamless;
-      case 83:
-        return Model.ncep_gfswave016;
-      case 84:
-        return Model.ncep_nbm_conus;
-      case 85:
-        return Model.ukmo_global_ensemble_20km;
-      case 86:
-        return Model.ecmwf_aifs025_single;
-      case 87:
-        return Model.jma_jaxa_himawari;
-      case 88:
-        return Model.eumetsat_sarah3;
-      case 89:
-        return Model.eumetsat_lsa_saf_msg;
-      case 90:
-        return Model.eumetsat_lsa_saf_iodc;
-      case 91:
-        return Model.satellite_radiation_seamless;
-      case 92:
-        return Model.kma_gdps;
-      case 93:
-        return Model.kma_ldps;
-      default:
-        throw StateError('Invalid value $value for bit flag enum');
+      case 0: return Model.undefined;
+      case 1: return Model.best_match;
+      case 2: return Model.gfs_seamless;
+      case 3: return Model.gfs_global;
+      case 4: return Model.gfs_hrrr;
+      case 5: return Model.meteofrance_seamless;
+      case 6: return Model.meteofrance_arpege_seamless;
+      case 7: return Model.meteofrance_arpege_world;
+      case 8: return Model.meteofrance_arpege_europe;
+      case 9: return Model.meteofrance_arome_seamless;
+      case 10: return Model.meteofrance_arome_france;
+      case 11: return Model.meteofrance_arome_france_hd;
+      case 12: return Model.jma_seamless;
+      case 13: return Model.jma_msm;
+      case 14: return Model.jms_gsm;
+      case 15: return Model.jma_gsm;
+      case 16: return Model.gem_seamless;
+      case 17: return Model.gem_global;
+      case 18: return Model.gem_regional;
+      case 19: return Model.gem_hrdps_continental;
+      case 20: return Model.icon_seamless;
+      case 21: return Model.icon_global;
+      case 22: return Model.icon_eu;
+      case 23: return Model.icon_d2;
+      case 24: return Model.ecmwf_ifs04;
+      case 25: return Model.metno_nordic;
+      case 26: return Model.era5_seamless;
+      case 27: return Model.era5;
+      case 28: return Model.cerra;
+      case 29: return Model.era5_land;
+      case 30: return Model.ecmwf_ifs;
+      case 31: return Model.gwam;
+      case 32: return Model.ewam;
+      case 33: return Model.glofas_seamless_v3;
+      case 34: return Model.glofas_forecast_v3;
+      case 35: return Model.glofas_consolidated_v3;
+      case 36: return Model.glofas_seamless_v4;
+      case 37: return Model.glofas_forecast_v4;
+      case 38: return Model.glofas_consolidated_v4;
+      case 39: return Model.gfs025;
+      case 40: return Model.gfs05;
+      case 41: return Model.CMCC_CM2_VHR4;
+      case 42: return Model.FGOALS_f3_H_highresSST;
+      case 43: return Model.FGOALS_f3_H;
+      case 44: return Model.HiRAM_SIT_HR;
+      case 45: return Model.MRI_AGCM3_2_S;
+      case 46: return Model.EC_Earth3P_HR;
+      case 47: return Model.MPI_ESM1_2_XR;
+      case 48: return Model.NICAM16_8S;
+      case 49: return Model.cams_europe;
+      case 50: return Model.cams_global;
+      case 51: return Model.cfsv2;
+      case 52: return Model.era5_ocean;
+      case 53: return Model.cma_grapes_global;
+      case 54: return Model.bom_access_global;
+      case 55: return Model.bom_access_global_ensemble;
+      case 56: return Model.arpae_cosmo_seamless;
+      case 57: return Model.arpae_cosmo_2i;
+      case 58: return Model.arpae_cosmo_2i_ruc;
+      case 59: return Model.arpae_cosmo_5m;
+      case 60: return Model.ecmwf_ifs025;
+      case 61: return Model.ecmwf_aifs025;
+      case 62: return Model.gfs013;
+      case 63: return Model.gfs_graphcast025;
+      case 64: return Model.ecmwf_wam025;
+      case 65: return Model.meteofrance_wave;
+      case 66: return Model.meteofrance_currents;
+      case 67: return Model.ecmwf_wam025_ensemble;
+      case 68: return Model.ncep_gfswave025;
+      case 69: return Model.ncep_gefswave025;
+      case 70: return Model.knmi_seamless;
+      case 71: return Model.knmi_harmonie_arome_europe;
+      case 72: return Model.knmi_harmonie_arome_netherlands;
+      case 73: return Model.dmi_seamless;
+      case 74: return Model.dmi_harmonie_arome_europe;
+      case 75: return Model.metno_seamless;
+      case 76: return Model.era5_ensemble;
+      case 77: return Model.ecmwf_ifs_analysis;
+      case 78: return Model.ecmwf_ifs_long_window;
+      case 79: return Model.ecmwf_ifs_analysis_long_window;
+      case 80: return Model.ukmo_global_deterministic_10km;
+      case 81: return Model.ukmo_uk_deterministic_2km;
+      case 82: return Model.ukmo_seamless;
+      case 83: return Model.ncep_gfswave016;
+      case 84: return Model.ncep_nbm_conus;
+      case 85: return Model.ukmo_global_ensemble_20km;
+      case 86: return Model.ecmwf_aifs025_single;
+      case 87: return Model.jma_jaxa_himawari;
+      case 88: return Model.eumetsat_sarah3;
+      case 89: return Model.eumetsat_lsa_saf_msg;
+      case 90: return Model.eumetsat_lsa_saf_iodc;
+      case 91: return Model.satellite_radiation_seamless;
+      case 92: return Model.kma_gdps;
+      case 93: return Model.kma_ldps;
+      default: throw StateError('Invalid value $value for bit flag enum');
     }
   }
 
@@ -624,290 +487,148 @@ enum Variable {
 
   factory Variable.fromValue(int value) {
     switch (value) {
-      case 0:
-        return Variable.undefined;
-      case 1:
-        return Variable.apparent_temperature;
-      case 2:
-        return Variable.cape;
-      case 3:
-        return Variable.cloud_cover;
-      case 4:
-        return Variable.cloud_cover_high;
-      case 5:
-        return Variable.cloud_cover_low;
-      case 6:
-        return Variable.cloud_cover_mid;
-      case 7:
-        return Variable.daylight_duration;
-      case 8:
-        return Variable.dew_point;
-      case 9:
-        return Variable.diffuse_radiation;
-      case 10:
-        return Variable.diffuse_radiation_instant;
-      case 11:
-        return Variable.direct_normal_irradiance;
-      case 12:
-        return Variable.direct_normal_irradiance_instant;
-      case 13:
-        return Variable.direct_radiation;
-      case 14:
-        return Variable.direct_radiation_instant;
-      case 15:
-        return Variable.et0_fao_evapotranspiration;
-      case 16:
-        return Variable.evapotranspiration;
-      case 17:
-        return Variable.freezing_level_height;
-      case 18:
-        return Variable.growing_degree_days;
-      case 19:
-        return Variable.is_day;
-      case 20:
-        return Variable.latent_heat_flux;
-      case 21:
-        return Variable.leaf_wetness_probability;
-      case 22:
-        return Variable.lifted_index;
-      case 23:
-        return Variable.lightning_potential;
-      case 24:
-        return Variable.precipitation;
-      case 25:
-        return Variable.precipitation_hours;
-      case 26:
-        return Variable.precipitation_probability;
-      case 27:
-        return Variable.pressure_msl;
-      case 28:
-        return Variable.rain;
-      case 29:
-        return Variable.relative_humidity;
-      case 30:
-        return Variable.runoff;
-      case 31:
-        return Variable.sensible_heat_flux;
-      case 32:
-        return Variable.shortwave_radiation;
-      case 33:
-        return Variable.shortwave_radiation_instant;
-      case 34:
-        return Variable.showers;
-      case 35:
-        return Variable.snow_depth;
-      case 36:
-        return Variable.snow_height;
-      case 37:
-        return Variable.snowfall;
-      case 38:
-        return Variable.snowfall_height;
-      case 39:
-        return Variable.snowfall_water_equivalent;
-      case 40:
-        return Variable.sunrise;
-      case 41:
-        return Variable.sunset;
-      case 42:
-        return Variable.soil_moisture;
-      case 43:
-        return Variable.soil_moisture_index;
-      case 44:
-        return Variable.soil_temperature;
-      case 45:
-        return Variable.surface_pressure;
-      case 46:
-        return Variable.surface_temperature;
-      case 47:
-        return Variable.temperature;
-      case 48:
-        return Variable.terrestrial_radiation;
-      case 49:
-        return Variable.terrestrial_radiation_instant;
-      case 50:
-        return Variable.total_column_integrated_water_vapour;
-      case 51:
-        return Variable.updraft;
-      case 52:
-        return Variable.uv_index;
-      case 53:
-        return Variable.uv_index_clear_sky;
-      case 54:
-        return Variable.vapour_pressure_deficit;
-      case 55:
-        return Variable.visibility;
-      case 56:
-        return Variable.weather_code;
-      case 57:
-        return Variable.wind_direction;
-      case 58:
-        return Variable.wind_gusts;
-      case 59:
-        return Variable.wind_speed;
-      case 60:
-        return Variable.vertical_velocity;
-      case 61:
-        return Variable.geopotential_height;
-      case 62:
-        return Variable.wet_bulb_temperature;
-      case 63:
-        return Variable.river_discharge;
-      case 64:
-        return Variable.wave_height;
-      case 65:
-        return Variable.wave_period;
-      case 66:
-        return Variable.wave_direction;
-      case 67:
-        return Variable.wind_wave_height;
-      case 68:
-        return Variable.wind_wave_period;
-      case 69:
-        return Variable.wind_wave_peak_period;
-      case 70:
-        return Variable.wind_wave_direction;
-      case 71:
-        return Variable.swell_wave_height;
-      case 72:
-        return Variable.swell_wave_period;
-      case 73:
-        return Variable.swell_wave_peak_period;
-      case 74:
-        return Variable.swell_wave_direction;
-      case 75:
-        return Variable.pm10;
-      case 76:
-        return Variable.pm2p5;
-      case 77:
-        return Variable.dust;
-      case 78:
-        return Variable.aerosol_optical_depth;
-      case 79:
-        return Variable.carbon_monoxide;
-      case 80:
-        return Variable.nitrogen_dioxide;
-      case 81:
-        return Variable.ammonia;
-      case 82:
-        return Variable.ozone;
-      case 83:
-        return Variable.sulphur_dioxide;
-      case 84:
-        return Variable.alder_pollen;
-      case 85:
-        return Variable.birch_pollen;
-      case 86:
-        return Variable.grass_pollen;
-      case 87:
-        return Variable.mugwort_pollen;
-      case 88:
-        return Variable.olive_pollen;
-      case 89:
-        return Variable.ragweed_pollen;
-      case 90:
-        return Variable.european_aqi;
-      case 91:
-        return Variable.european_aqi_pm2p5;
-      case 92:
-        return Variable.european_aqi_pm10;
-      case 93:
-        return Variable.european_aqi_nitrogen_dioxide;
-      case 94:
-        return Variable.european_aqi_ozone;
-      case 95:
-        return Variable.european_aqi_sulphur_dioxide;
-      case 96:
-        return Variable.us_aqi;
-      case 97:
-        return Variable.us_aqi_pm2p5;
-      case 98:
-        return Variable.us_aqi_pm10;
-      case 99:
-        return Variable.us_aqi_nitrogen_dioxide;
-      case 100:
-        return Variable.us_aqi_ozone;
-      case 101:
-        return Variable.us_aqi_sulphur_dioxide;
-      case 102:
-        return Variable.us_aqi_carbon_monoxide;
-      case 103:
-        return Variable.sunshine_duration;
-      case 104:
-        return Variable.convective_inhibition;
-      case 105:
-        return Variable.shortwave_radiation_clear_sky;
-      case 106:
-        return Variable.global_tilted_irradiance;
-      case 107:
-        return Variable.global_tilted_irradiance_instant;
-      case 108:
-        return Variable.ocean_current_velocity;
-      case 109:
-        return Variable.ocean_current_direction;
-      case 110:
-        return Variable.cloud_base;
-      case 111:
-        return Variable.cloud_top;
-      case 112:
-        return Variable.mass_density;
-      case 113:
-        return Variable.boundary_layer_height;
-      case 114:
-        return Variable.formaldehyde;
-      case 115:
-        return Variable.glyoxal;
-      case 116:
-        return Variable.non_methane_volatile_organic_compounds;
-      case 117:
-        return Variable.pm10_wildfires;
-      case 118:
-        return Variable.peroxyacyl_nitrates;
-      case 119:
-        return Variable.secondary_inorganic_aerosol;
-      case 120:
-        return Variable.residential_elementary_carbon;
-      case 121:
-        return Variable.total_elementary_carbon;
-      case 122:
-        return Variable.pm2_5_total_organic_matter;
-      case 123:
-        return Variable.sea_salt_aerosol;
-      case 124:
-        return Variable.nitrogen_monoxide;
-      case 125:
-        return Variable.thunderstorm_probability;
-      case 126:
-        return Variable.rain_probability;
-      case 127:
-        return Variable.freezing_rain_probability;
-      case 128:
-        return Variable.ice_pellets_probability;
-      case 129:
-        return Variable.snowfall_probability;
-      case 130:
-        return Variable.carbon_dioxide;
-      case 131:
-        return Variable.methane;
-      case 132:
-        return Variable.sea_level_height_msl;
-      case 133:
-        return Variable.sea_surface_temperature;
-      case 134:
-        return Variable.invert_barometer_height;
-      case 135:
-        return Variable.hail;
-      case 136:
-        return Variable.albedo;
-      case 137:
-        return Variable.precipitation_type;
-      case 138:
-        return Variable.convective_cloud_base;
-      case 139:
-        return Variable.convective_cloud_top;
-      case 140:
-        return Variable.snow_depth_water_equivalent;
-      default:
-        throw StateError('Invalid value $value for bit flag enum');
+      case 0: return Variable.undefined;
+      case 1: return Variable.apparent_temperature;
+      case 2: return Variable.cape;
+      case 3: return Variable.cloud_cover;
+      case 4: return Variable.cloud_cover_high;
+      case 5: return Variable.cloud_cover_low;
+      case 6: return Variable.cloud_cover_mid;
+      case 7: return Variable.daylight_duration;
+      case 8: return Variable.dew_point;
+      case 9: return Variable.diffuse_radiation;
+      case 10: return Variable.diffuse_radiation_instant;
+      case 11: return Variable.direct_normal_irradiance;
+      case 12: return Variable.direct_normal_irradiance_instant;
+      case 13: return Variable.direct_radiation;
+      case 14: return Variable.direct_radiation_instant;
+      case 15: return Variable.et0_fao_evapotranspiration;
+      case 16: return Variable.evapotranspiration;
+      case 17: return Variable.freezing_level_height;
+      case 18: return Variable.growing_degree_days;
+      case 19: return Variable.is_day;
+      case 20: return Variable.latent_heat_flux;
+      case 21: return Variable.leaf_wetness_probability;
+      case 22: return Variable.lifted_index;
+      case 23: return Variable.lightning_potential;
+      case 24: return Variable.precipitation;
+      case 25: return Variable.precipitation_hours;
+      case 26: return Variable.precipitation_probability;
+      case 27: return Variable.pressure_msl;
+      case 28: return Variable.rain;
+      case 29: return Variable.relative_humidity;
+      case 30: return Variable.runoff;
+      case 31: return Variable.sensible_heat_flux;
+      case 32: return Variable.shortwave_radiation;
+      case 33: return Variable.shortwave_radiation_instant;
+      case 34: return Variable.showers;
+      case 35: return Variable.snow_depth;
+      case 36: return Variable.snow_height;
+      case 37: return Variable.snowfall;
+      case 38: return Variable.snowfall_height;
+      case 39: return Variable.snowfall_water_equivalent;
+      case 40: return Variable.sunrise;
+      case 41: return Variable.sunset;
+      case 42: return Variable.soil_moisture;
+      case 43: return Variable.soil_moisture_index;
+      case 44: return Variable.soil_temperature;
+      case 45: return Variable.surface_pressure;
+      case 46: return Variable.surface_temperature;
+      case 47: return Variable.temperature;
+      case 48: return Variable.terrestrial_radiation;
+      case 49: return Variable.terrestrial_radiation_instant;
+      case 50: return Variable.total_column_integrated_water_vapour;
+      case 51: return Variable.updraft;
+      case 52: return Variable.uv_index;
+      case 53: return Variable.uv_index_clear_sky;
+      case 54: return Variable.vapour_pressure_deficit;
+      case 55: return Variable.visibility;
+      case 56: return Variable.weather_code;
+      case 57: return Variable.wind_direction;
+      case 58: return Variable.wind_gusts;
+      case 59: return Variable.wind_speed;
+      case 60: return Variable.vertical_velocity;
+      case 61: return Variable.geopotential_height;
+      case 62: return Variable.wet_bulb_temperature;
+      case 63: return Variable.river_discharge;
+      case 64: return Variable.wave_height;
+      case 65: return Variable.wave_period;
+      case 66: return Variable.wave_direction;
+      case 67: return Variable.wind_wave_height;
+      case 68: return Variable.wind_wave_period;
+      case 69: return Variable.wind_wave_peak_period;
+      case 70: return Variable.wind_wave_direction;
+      case 71: return Variable.swell_wave_height;
+      case 72: return Variable.swell_wave_period;
+      case 73: return Variable.swell_wave_peak_period;
+      case 74: return Variable.swell_wave_direction;
+      case 75: return Variable.pm10;
+      case 76: return Variable.pm2p5;
+      case 77: return Variable.dust;
+      case 78: return Variable.aerosol_optical_depth;
+      case 79: return Variable.carbon_monoxide;
+      case 80: return Variable.nitrogen_dioxide;
+      case 81: return Variable.ammonia;
+      case 82: return Variable.ozone;
+      case 83: return Variable.sulphur_dioxide;
+      case 84: return Variable.alder_pollen;
+      case 85: return Variable.birch_pollen;
+      case 86: return Variable.grass_pollen;
+      case 87: return Variable.mugwort_pollen;
+      case 88: return Variable.olive_pollen;
+      case 89: return Variable.ragweed_pollen;
+      case 90: return Variable.european_aqi;
+      case 91: return Variable.european_aqi_pm2p5;
+      case 92: return Variable.european_aqi_pm10;
+      case 93: return Variable.european_aqi_nitrogen_dioxide;
+      case 94: return Variable.european_aqi_ozone;
+      case 95: return Variable.european_aqi_sulphur_dioxide;
+      case 96: return Variable.us_aqi;
+      case 97: return Variable.us_aqi_pm2p5;
+      case 98: return Variable.us_aqi_pm10;
+      case 99: return Variable.us_aqi_nitrogen_dioxide;
+      case 100: return Variable.us_aqi_ozone;
+      case 101: return Variable.us_aqi_sulphur_dioxide;
+      case 102: return Variable.us_aqi_carbon_monoxide;
+      case 103: return Variable.sunshine_duration;
+      case 104: return Variable.convective_inhibition;
+      case 105: return Variable.shortwave_radiation_clear_sky;
+      case 106: return Variable.global_tilted_irradiance;
+      case 107: return Variable.global_tilted_irradiance_instant;
+      case 108: return Variable.ocean_current_velocity;
+      case 109: return Variable.ocean_current_direction;
+      case 110: return Variable.cloud_base;
+      case 111: return Variable.cloud_top;
+      case 112: return Variable.mass_density;
+      case 113: return Variable.boundary_layer_height;
+      case 114: return Variable.formaldehyde;
+      case 115: return Variable.glyoxal;
+      case 116: return Variable.non_methane_volatile_organic_compounds;
+      case 117: return Variable.pm10_wildfires;
+      case 118: return Variable.peroxyacyl_nitrates;
+      case 119: return Variable.secondary_inorganic_aerosol;
+      case 120: return Variable.residential_elementary_carbon;
+      case 121: return Variable.total_elementary_carbon;
+      case 122: return Variable.pm2_5_total_organic_matter;
+      case 123: return Variable.sea_salt_aerosol;
+      case 124: return Variable.nitrogen_monoxide;
+      case 125: return Variable.thunderstorm_probability;
+      case 126: return Variable.rain_probability;
+      case 127: return Variable.freezing_rain_probability;
+      case 128: return Variable.ice_pellets_probability;
+      case 129: return Variable.snowfall_probability;
+      case 130: return Variable.carbon_dioxide;
+      case 131: return Variable.methane;
+      case 132: return Variable.sea_level_height_msl;
+      case 133: return Variable.sea_surface_temperature;
+      case 134: return Variable.invert_barometer_height;
+      case 135: return Variable.hail;
+      case 136: return Variable.albedo;
+      case 137: return Variable.precipitation_type;
+      case 138: return Variable.convective_cloud_base;
+      case 139: return Variable.convective_cloud_top;
+      case 140: return Variable.snow_depth_water_equivalent;
+      default: throw StateError('Invalid value $value for bit flag enum');
     }
   }
 
@@ -949,32 +670,19 @@ enum Aggregation {
 
   factory Aggregation.fromValue(int value) {
     switch (value) {
-      case 0:
-        return Aggregation.none;
-      case 1:
-        return Aggregation.minimum;
-      case 2:
-        return Aggregation.maximum;
-      case 3:
-        return Aggregation.mean;
-      case 4:
-        return Aggregation.p10;
-      case 5:
-        return Aggregation.p25;
-      case 6:
-        return Aggregation.median;
-      case 7:
-        return Aggregation.p75;
-      case 8:
-        return Aggregation.p90;
-      case 9:
-        return Aggregation.dominant;
-      case 10:
-        return Aggregation.sum;
-      case 11:
-        return Aggregation.spread;
-      default:
-        throw StateError('Invalid value $value for bit flag enum');
+      case 0: return Aggregation.none;
+      case 1: return Aggregation.minimum;
+      case 2: return Aggregation.maximum;
+      case 3: return Aggregation.mean;
+      case 4: return Aggregation.p10;
+      case 5: return Aggregation.p25;
+      case 6: return Aggregation.median;
+      case 7: return Aggregation.p75;
+      case 8: return Aggregation.p90;
+      case 9: return Aggregation.dominant;
+      case 10: return Aggregation.sum;
+      case 11: return Aggregation.spread;
+      default: throw StateError('Invalid value $value for bit flag enum');
     }
   }
 
@@ -1004,37 +712,27 @@ class VariableWithValues {
     return reader.read(rootRef, 0);
   }
 
-  static const fb.Reader<VariableWithValues> reader =
-      _VariableWithValuesReader();
+  static const fb.Reader<VariableWithValues> reader = _VariableWithValuesReader();
 
   final fb.BufferContext _bc;
   final int _bcOffset;
 
-  Variable get variable => Variable.fromValue(
-      const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 4, 0));
-  Unit get unit =>
-      Unit.fromValue(const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 6, 0));
-  double get value =>
-      const fb.Float32Reader().vTableGet(_bc, _bcOffset, 8, 0.0);
-  List<double>? get values => const fb.ListReader<double>(fb.Float32Reader())
-      .vTableGetNullable(_bc, _bcOffset, 10);
-  List<int>? get valuesInt64 => const fb.ListReader<int>(fb.Int64Reader())
-      .vTableGetNullable(_bc, _bcOffset, 12);
+  Variable get variable => Variable.fromValue(const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 4, 0));
+  Unit get unit => Unit.fromValue(const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 6, 0));
+  double get value => const fb.Float32Reader().vTableGet(_bc, _bcOffset, 8, 0.0);
+  List<double>? get values => const fb.ListReader<double>(fb.Float32Reader()).vTableGetNullable(_bc, _bcOffset, 10);
+  List<int>? get valuesInt64 => const fb.ListReader<int>(fb.Int64Reader()).vTableGetNullable(_bc, _bcOffset, 12);
   int get altitude => const fb.Int16Reader().vTableGet(_bc, _bcOffset, 14, 0);
-  Aggregation get aggregation => Aggregation.fromValue(
-      const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 16, 0));
-  int get pressureLevel =>
-      const fb.Int16Reader().vTableGet(_bc, _bcOffset, 18, 0);
+  Aggregation get aggregation => Aggregation.fromValue(const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 16, 0));
+  int get pressureLevel => const fb.Int16Reader().vTableGet(_bc, _bcOffset, 18, 0);
   int get depth => const fb.Int16Reader().vTableGet(_bc, _bcOffset, 20, 0);
   int get depthTo => const fb.Int16Reader().vTableGet(_bc, _bcOffset, 22, 0);
-  int get ensembleMember =>
-      const fb.Int16Reader().vTableGet(_bc, _bcOffset, 24, 0);
-  int get previousDay =>
-      const fb.Int16Reader().vTableGet(_bc, _bcOffset, 26, 0);
+  int get ensembleMember => const fb.Int16Reader().vTableGet(_bc, _bcOffset, 24, 0);
+  int get previousDay => const fb.Int16Reader().vTableGet(_bc, _bcOffset, 26, 0);
 
   @override
   String toString() {
-    return 'VariableWithValues{variable: $variable, unit: $unit, value: $value, values: $values, valuesInt64: $valuesInt64, altitude: $altitude, aggregation: $aggregation, pressureLevel: $pressureLevel, depth: $depth, depthTo: $depthTo, ensembleMember: $ensembleMember, previousDay: $previousDay}';
+    return 'VariableWithValues{variable: ${variable}, unit: ${unit}, value: ${value}, values: ${values}, valuesInt64: ${valuesInt64}, altitude: ${altitude}, aggregation: ${aggregation}, pressureLevel: ${pressureLevel}, depth: ${depth}, depthTo: ${depthTo}, ensembleMember: ${ensembleMember}, previousDay: ${previousDay}}';
   }
 }
 
@@ -1042,8 +740,8 @@ class _VariableWithValuesReader extends fb.TableReader<VariableWithValues> {
   const _VariableWithValuesReader();
 
   @override
-  VariableWithValues createObject(fb.BufferContext bc, int offset) =>
-      VariableWithValues._(bc, offset);
+  VariableWithValues createObject(fb.BufferContext bc, int offset) => 
+    VariableWithValues._(bc, offset);
 }
 
 class VariableWithValuesBuilder {
@@ -1059,57 +757,46 @@ class VariableWithValuesBuilder {
     fbBuilder.addUint8(0, variable?.value);
     return fbBuilder.offset;
   }
-
   int addUnit(Unit? unit) {
     fbBuilder.addUint8(1, unit?.value);
     return fbBuilder.offset;
   }
-
   int addValue(double? value) {
     fbBuilder.addFloat32(2, value);
     return fbBuilder.offset;
   }
-
   int addValuesOffset(int? offset) {
     fbBuilder.addOffset(3, offset);
     return fbBuilder.offset;
   }
-
   int addValuesInt64Offset(int? offset) {
     fbBuilder.addOffset(4, offset);
     return fbBuilder.offset;
   }
-
   int addAltitude(int? altitude) {
     fbBuilder.addInt16(5, altitude);
     return fbBuilder.offset;
   }
-
   int addAggregation(Aggregation? aggregation) {
     fbBuilder.addUint8(6, aggregation?.value);
     return fbBuilder.offset;
   }
-
   int addPressureLevel(int? pressureLevel) {
     fbBuilder.addInt16(7, pressureLevel);
     return fbBuilder.offset;
   }
-
   int addDepth(int? depth) {
     fbBuilder.addInt16(8, depth);
     return fbBuilder.offset;
   }
-
   int addDepthTo(int? depthTo) {
     fbBuilder.addInt16(9, depthTo);
     return fbBuilder.offset;
   }
-
   int addEnsembleMember(int? ensembleMember) {
     fbBuilder.addInt16(10, ensembleMember);
     return fbBuilder.offset;
   }
-
   int addPreviousDay(int? previousDay) {
     fbBuilder.addInt16(11, previousDay);
     return fbBuilder.offset;
@@ -1147,7 +834,8 @@ class VariableWithValuesObjectBuilder extends fb.ObjectBuilder {
     int? depthTo,
     int? ensembleMember,
     int? previousDay,
-  })  : _variable = variable,
+  })
+      : _variable = variable,
         _unit = unit,
         _value = value,
         _values = values,
@@ -1163,10 +851,10 @@ class VariableWithValuesObjectBuilder extends fb.ObjectBuilder {
   /// Finish building, and store into the [fbBuilder].
   @override
   int finish(fb.Builder fbBuilder) {
-    final int? valuesOffset =
-        _values == null ? null : fbBuilder.writeListFloat32(_values!);
-    final int? valuesInt64Offset =
-        _valuesInt64 == null ? null : fbBuilder.writeListInt64(_valuesInt64!);
+    final int? valuesOffset = _values == null ? null
+        : fbBuilder.writeListFloat32(_values!);
+    final int? valuesInt64Offset = _valuesInt64 == null ? null
+        : fbBuilder.writeListInt64(_valuesInt64!);
     fbBuilder.startTable(12);
     fbBuilder.addUint8(0, _variable?.value);
     fbBuilder.addUint8(1, _unit?.value);
@@ -1191,7 +879,6 @@ class VariableWithValuesObjectBuilder extends fb.ObjectBuilder {
     return fbBuilder.buffer;
   }
 }
-
 class VariablesWithTime {
   VariablesWithTime._(this._bc, this._bcOffset);
   factory VariablesWithTime(List<int> bytes) {
@@ -1204,16 +891,14 @@ class VariablesWithTime {
   final fb.BufferContext _bc;
   final int _bcOffset;
 
-  int get time => const fb.Int64Reader().vTableGet(_bc, _bcOffset, 4, 0);
-  int get timeEnd => const fb.Int64Reader().vTableGet(_bc, _bcOffset, 6, 0);
+  int get time => const fb.Int32Reader().vTableGet(_bc, _bcOffset, 4, 0);
+  int get timeEnd => const fb.Int32Reader().vTableGet(_bc, _bcOffset, 6, 0);
   int get interval => const fb.Int32Reader().vTableGet(_bc, _bcOffset, 8, 0);
-  List<VariableWithValues>? get variables =>
-      const fb.ListReader<VariableWithValues>(VariableWithValues.reader)
-          .vTableGetNullable(_bc, _bcOffset, 10);
+  List<VariableWithValues>? get variables => const fb.ListReader<VariableWithValues>(VariableWithValues.reader).vTableGetNullable(_bc, _bcOffset, 10);
 
   @override
   String toString() {
-    return 'VariablesWithTime{time: $time, timeEnd: $timeEnd, interval: $interval, variables: $variables}';
+    return 'VariablesWithTime{time: ${time}, timeEnd: ${timeEnd}, interval: ${interval}, variables: ${variables}}';
   }
 }
 
@@ -1221,8 +906,8 @@ class _VariablesWithTimeReader extends fb.TableReader<VariablesWithTime> {
   const _VariablesWithTimeReader();
 
   @override
-  VariablesWithTime createObject(fb.BufferContext bc, int offset) =>
-      VariablesWithTime._(bc, offset);
+  VariablesWithTime createObject(fb.BufferContext bc, int offset) => 
+    VariablesWithTime._(bc, offset);
 }
 
 class VariablesWithTimeBuilder {
@@ -1235,20 +920,17 @@ class VariablesWithTimeBuilder {
   }
 
   int addTime(int? time) {
-    fbBuilder.addInt64(0, time);
+    fbBuilder.addInt32(0, time);
     return fbBuilder.offset;
   }
-
   int addTimeEnd(int? timeEnd) {
-    fbBuilder.addInt64(1, timeEnd);
+    fbBuilder.addInt32(1, timeEnd);
     return fbBuilder.offset;
   }
-
   int addInterval(int? interval) {
     fbBuilder.addInt32(2, interval);
     return fbBuilder.offset;
   }
-
   int addVariablesOffset(int? offset) {
     fbBuilder.addOffset(3, offset);
     return fbBuilder.offset;
@@ -1270,7 +952,8 @@ class VariablesWithTimeObjectBuilder extends fb.ObjectBuilder {
     int? timeEnd,
     int? interval,
     List<VariableWithValuesObjectBuilder>? variables,
-  })  : _time = time,
+  })
+      : _time = time,
         _timeEnd = timeEnd,
         _interval = interval,
         _variables = variables;
@@ -1278,13 +961,11 @@ class VariablesWithTimeObjectBuilder extends fb.ObjectBuilder {
   /// Finish building, and store into the [fbBuilder].
   @override
   int finish(fb.Builder fbBuilder) {
-    final int? variablesOffset = _variables == null
-        ? null
-        : fbBuilder.writeList(
-            _variables!.map((b) => b.getOrCreateOffset(fbBuilder)).toList());
+    final int? variablesOffset = _variables == null ? null
+        : fbBuilder.writeList(_variables!.map((b) => b.getOrCreateOffset(fbBuilder)).toList());
     fbBuilder.startTable(4);
-    fbBuilder.addInt64(0, _time);
-    fbBuilder.addInt64(1, _timeEnd);
+    fbBuilder.addInt32(0, _time);
+    fbBuilder.addInt32(1, _timeEnd);
     fbBuilder.addInt32(2, _interval);
     fbBuilder.addOffset(3, variablesOffset);
     return fbBuilder.endTable();
@@ -1298,7 +979,6 @@ class VariablesWithTimeObjectBuilder extends fb.ObjectBuilder {
     return fbBuilder.buffer;
   }
 }
-
 class WeatherApiResponse {
   WeatherApiResponse._(this._bc, this._bcOffset);
   factory WeatherApiResponse(List<int> bytes) {
@@ -1306,43 +986,29 @@ class WeatherApiResponse {
     return reader.read(rootRef, 0);
   }
 
-  static const fb.Reader<WeatherApiResponse> reader =
-      _WeatherApiResponseReader();
+  static const fb.Reader<WeatherApiResponse> reader = _WeatherApiResponseReader();
 
   final fb.BufferContext _bc;
   final int _bcOffset;
 
-  double get latitude =>
-      const fb.Float32Reader().vTableGet(_bc, _bcOffset, 4, 0.0);
-  double get longitude =>
-      const fb.Float32Reader().vTableGet(_bc, _bcOffset, 6, 0.0);
-  double get elevation =>
-      const fb.Float32Reader().vTableGet(_bc, _bcOffset, 8, 0.0);
-  double get generationTimeMilliseconds =>
-      const fb.Float32Reader().vTableGet(_bc, _bcOffset, 10, 0.0);
+  double get latitude => const fb.Float32Reader().vTableGet(_bc, _bcOffset, 4, 0.0);
+  double get longitude => const fb.Float32Reader().vTableGet(_bc, _bcOffset, 6, 0.0);
+  double get elevation => const fb.Float32Reader().vTableGet(_bc, _bcOffset, 8, 0.0);
+  double get generationTimeMilliseconds => const fb.Float32Reader().vTableGet(_bc, _bcOffset, 10, 0.0);
   int get locationId => const fb.Int64Reader().vTableGet(_bc, _bcOffset, 12, 0);
-  Model get model =>
-      Model.fromValue(const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 14, 0));
-  int get utcOffsetSeconds =>
-      const fb.Int32Reader().vTableGet(_bc, _bcOffset, 16, 0);
-  String? get timezone =>
-      const fb.StringReader().vTableGetNullable(_bc, _bcOffset, 18);
-  String? get timezoneAbbreviation =>
-      const fb.StringReader().vTableGetNullable(_bc, _bcOffset, 20);
-  VariablesWithTime? get current =>
-      VariablesWithTime.reader.vTableGetNullable(_bc, _bcOffset, 22);
-  VariablesWithTime? get daily =>
-      VariablesWithTime.reader.vTableGetNullable(_bc, _bcOffset, 24);
-  VariablesWithTime? get hourly =>
-      VariablesWithTime.reader.vTableGetNullable(_bc, _bcOffset, 26);
-  VariablesWithTime? get minutely15 =>
-      VariablesWithTime.reader.vTableGetNullable(_bc, _bcOffset, 28);
-  VariablesWithTime? get sixHourly =>
-      VariablesWithTime.reader.vTableGetNullable(_bc, _bcOffset, 30);
+  Model get model => Model.fromValue(const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 14, 0));
+  int get utcOffsetSeconds => const fb.Int32Reader().vTableGet(_bc, _bcOffset, 16, 0);
+  String? get timezone => const fb.StringReader().vTableGetNullable(_bc, _bcOffset, 18);
+  String? get timezoneAbbreviation => const fb.StringReader().vTableGetNullable(_bc, _bcOffset, 20);
+  VariablesWithTime? get current => VariablesWithTime.reader.vTableGetNullable(_bc, _bcOffset, 22);
+  VariablesWithTime? get daily => VariablesWithTime.reader.vTableGetNullable(_bc, _bcOffset, 24);
+  VariablesWithTime? get hourly => VariablesWithTime.reader.vTableGetNullable(_bc, _bcOffset, 26);
+  VariablesWithTime? get minutely15 => VariablesWithTime.reader.vTableGetNullable(_bc, _bcOffset, 28);
+  VariablesWithTime? get sixHourly => VariablesWithTime.reader.vTableGetNullable(_bc, _bcOffset, 30);
 
   @override
   String toString() {
-    return 'WeatherApiResponse{latitude: $latitude, longitude: $longitude, elevation: $elevation, generationTimeMilliseconds: $generationTimeMilliseconds, locationId: $locationId, model: $model, utcOffsetSeconds: $utcOffsetSeconds, timezone: $timezone, timezoneAbbreviation: $timezoneAbbreviation, current: $current, daily: $daily, hourly: $hourly, minutely15: $minutely15, sixHourly: $sixHourly}';
+    return 'WeatherApiResponse{latitude: ${latitude}, longitude: ${longitude}, elevation: ${elevation}, generationTimeMilliseconds: ${generationTimeMilliseconds}, locationId: ${locationId}, model: ${model}, utcOffsetSeconds: ${utcOffsetSeconds}, timezone: ${timezone}, timezoneAbbreviation: ${timezoneAbbreviation}, current: ${current}, daily: ${daily}, hourly: ${hourly}, minutely15: ${minutely15}, sixHourly: ${sixHourly}}';
   }
 }
 
@@ -1350,8 +1016,8 @@ class _WeatherApiResponseReader extends fb.TableReader<WeatherApiResponse> {
   const _WeatherApiResponseReader();
 
   @override
-  WeatherApiResponse createObject(fb.BufferContext bc, int offset) =>
-      WeatherApiResponse._(bc, offset);
+  WeatherApiResponse createObject(fb.BufferContext bc, int offset) => 
+    WeatherApiResponse._(bc, offset);
 }
 
 class WeatherApiResponseBuilder {
@@ -1367,67 +1033,54 @@ class WeatherApiResponseBuilder {
     fbBuilder.addFloat32(0, latitude);
     return fbBuilder.offset;
   }
-
   int addLongitude(double? longitude) {
     fbBuilder.addFloat32(1, longitude);
     return fbBuilder.offset;
   }
-
   int addElevation(double? elevation) {
     fbBuilder.addFloat32(2, elevation);
     return fbBuilder.offset;
   }
-
   int addGenerationTimeMilliseconds(double? generationTimeMilliseconds) {
     fbBuilder.addFloat32(3, generationTimeMilliseconds);
     return fbBuilder.offset;
   }
-
   int addLocationId(int? locationId) {
     fbBuilder.addInt64(4, locationId);
     return fbBuilder.offset;
   }
-
   int addModel(Model? model) {
     fbBuilder.addUint8(5, model?.value);
     return fbBuilder.offset;
   }
-
   int addUtcOffsetSeconds(int? utcOffsetSeconds) {
     fbBuilder.addInt32(6, utcOffsetSeconds);
     return fbBuilder.offset;
   }
-
   int addTimezoneOffset(int? offset) {
     fbBuilder.addOffset(7, offset);
     return fbBuilder.offset;
   }
-
   int addTimezoneAbbreviationOffset(int? offset) {
     fbBuilder.addOffset(8, offset);
     return fbBuilder.offset;
   }
-
   int addCurrentOffset(int? offset) {
     fbBuilder.addOffset(9, offset);
     return fbBuilder.offset;
   }
-
   int addDailyOffset(int? offset) {
     fbBuilder.addOffset(10, offset);
     return fbBuilder.offset;
   }
-
   int addHourlyOffset(int? offset) {
     fbBuilder.addOffset(11, offset);
     return fbBuilder.offset;
   }
-
   int addMinutely15Offset(int? offset) {
     fbBuilder.addOffset(12, offset);
     return fbBuilder.offset;
   }
-
   int addSixHourlyOffset(int? offset) {
     fbBuilder.addOffset(13, offset);
     return fbBuilder.offset;
@@ -1469,7 +1122,8 @@ class WeatherApiResponseObjectBuilder extends fb.ObjectBuilder {
     VariablesWithTimeObjectBuilder? hourly,
     VariablesWithTimeObjectBuilder? minutely15,
     VariablesWithTimeObjectBuilder? sixHourly,
-  })  : _latitude = latitude,
+  })
+      : _latitude = latitude,
         _longitude = longitude,
         _elevation = elevation,
         _generationTimeMilliseconds = generationTimeMilliseconds,
@@ -1487,10 +1141,9 @@ class WeatherApiResponseObjectBuilder extends fb.ObjectBuilder {
   /// Finish building, and store into the [fbBuilder].
   @override
   int finish(fb.Builder fbBuilder) {
-    final int? timezoneOffset =
-        _timezone == null ? null : fbBuilder.writeString(_timezone!);
-    final int? timezoneAbbreviationOffset = _timezoneAbbreviation == null
-        ? null
+    final int? timezoneOffset = _timezone == null ? null
+        : fbBuilder.writeString(_timezone!);
+    final int? timezoneAbbreviationOffset = _timezoneAbbreviation == null ? null
         : fbBuilder.writeString(_timezoneAbbreviation!);
     final int? currentOffset = _current?.getOrCreateOffset(fbBuilder);
     final int? dailyOffset = _daily?.getOrCreateOffset(fbBuilder);
